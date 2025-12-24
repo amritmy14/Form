@@ -190,36 +190,30 @@ form.addEventListener("submit", async (e) => {
   const data = Object.fromEntries(new FormData(form));
 
   try {
-    const res = await fetch("https://script.google.com/macros/s/AKfycbx4eD43nn6kAIX64thb-vdohZrAXYR4wR7Z8Nnorry_3fxTrdeDzd-FXy4oE9uVmvpBNg/exec", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data),
-      mode: "cors"
-    });
+    await fetch(
+      "https://script.google.com/macros/s/AKfycbxVTUwl4EzrjDmUt6ZkeduzcSh7TcxewPz7K2XGZKHEQdCT4zwGFUq7J4A0u-ybcZEh-g/exec",
+      {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      }
+    );
 
-    const text = await res.text();
-    console.log("RAW RESPONSE:", text);
-
-    const result = JSON.parse(text);
-
-    if (!result.success) {
-      throw new Error(result.error || "Backend error");
-    }
-
-    alert("Submission successful ✅");
+    alert("Submission successful ✅\nPlease do not submit again.");
     form.reset();
 
   } catch (err) {
-    console.error(err);
-    alert("Submission failed ❌\n" + err.message);
+    alert("Submission failed ❌");
   }
 
   btn.disabled = false;
   btn.innerText = "SUBMIT DETAILS";
 });
 </script>
+
 
 
 </body>
